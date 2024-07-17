@@ -1,0 +1,18 @@
+Package: fastCNVdata
+Title: Data package for fastCNV containing single cell and spatial transcriptomics data
+Version: 0.0.2
+Authors@R: 
+    person("Gadea", "Cabrejas", , "gadea.cabrejas-saiz@u-paris.fr", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package contains scRNAseq and Spatial transcriptomics data.
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: R (>= 3.5.0)
+Imports: 
+    Seurat
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
