@@ -18,17 +18,18 @@ knitr::opts_chunk$set(
 library(fastCNVdata)
 library(Seurat)
 ```
-This is a data package, it contains scRNAseq and spatial transcriptomics data from different tissues, all of them in Seurat objects. 
+This is a data package, it contains scRNAseq and spatial transcriptomics data from colorectal cancer tissues, all of them in Seurat objects. 
 To load the scRNAseq data : 
 ```{r sc}
-utils::data(scBreast)
-utils::data(scColon)
-
+utils::data(scColon1)
+utils::data(scColon2)
+utils::data(scColon3)
+utils::data(scColon4)
 ```
 To load the Spatial Transcriptomics data  : 
 ```{r st}
-utils::data(crcsample1)
-utils::data(crcsample2)
-utils::data(crcsample3)
-utils::data(crcsample4)
+utils::data(STColon1)
+utils::data(STColon2)
+utils::data(STColon3)
+utils::data(STColon4)
 ```
