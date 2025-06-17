@@ -13,12 +13,6 @@ load_HDBreast(cache = TRUE)
 A data.frame or list containing the HDBreast dataset.
 }
 \description{
-Downloads the HDBreast dataset from GitHub Releases (∼770MB), caches it locally,
+Downloads the HDBreast dataset from GitHub Releases (∼800MB), caches it locally,
 and returns it as an R object.
-}
-\examples{
-\dontrun{
-  HDB <- load_HDBreast()
-  str(HDB)
-}
 }
