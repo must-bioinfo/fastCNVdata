@@ -11,7 +11,7 @@
 #' @export
 
 load_HDBreast <- function(cache = TRUE) {
-  url <- "https://github.com/must-bioinfo/fastCNVdata/releases/download/v1.0.1/HDBreast.rda"
+  url <- "https://github.com/must-bioinfo/fastCNVdata/releases/download/v1.0.4/HDBreast.rda"
   cache_path <- file.path(rappdirs::user_cache_dir("fastCNVdata"), "HDBreast.rda")
 
   if (!cache || !file.exists(cache_path)) {
@@ -25,7 +25,7 @@ load_HDBreast <- function(cache = TRUE) {
   tryCatch({
     load(cache_path, envir = env)
   }, error = function(e) {
-    message("❌ Load failed. Retrying download...")
+    message("Load failed. Retrying download...")
     unlink(cache_path)
     curl::curl_download(url, destfile = cache_path, mode = "wb")
     load(cache_path, envir = env)  # new download
