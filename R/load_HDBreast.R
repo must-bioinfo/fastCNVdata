@@ -12,31 +12,28 @@
 
 load_HDBreast <- function(cache = TRUE) {
   url <- "https://github.com/must-bioinfo/fastCNVdata/releases/download/v1.0.4/HDBreast.rda"
-  cache_path <- file.path(rappdirs::user_cache_dir("fastCNVdata"), "HDBreast.rda")
 
-  # Function to check remote modification time
-  remote_lastmod <- function(url) {
-    h <- curl::curl_fetch_memory(url, handle = curl::new_handle(nobody = TRUE))
-    ts <- h$headers[grep("last-modified", names(h$headers), ignore.case = TRUE)]
-    if (length(ts) == 0) return(NA)
-    as.POSIXct(ts, format = "%a, %d %b %Y %H:%M:%S", tz = "GMT")
-  }
+  cache_dir  <- rappdirs::user_cache_dir("fastCNVdata")
+  cache_path <- file.path(cache_dir, "HDBreast.rda")
+  url_path   <- paste0(cache_path, ".url")
 
-  # Determine if we need to download
-  remote_time <- remote_lastmod(url)
-  local_time  <- if (file.exists(cache_path)) file.info(cache_path)$mtime else NA
+  # Load previous URL if present
+  old_url <- if (file.exists(url_path)) readLines(url_path) else NA
 
+  # Should download?
   need_download <- !cache ||
     !file.exists(cache_path) ||
-    (!is.na(remote_time) && remote_time > local_time)
+    is.na(old_url) ||
+    old_url != url
 
   if (need_download) {
     message("Downloading HDBreast.rda (~800MB)...")
-    dir.create(dirname(cache_path), recursive = TRUE, showWarnings = FALSE)
+    dir.create(cache_dir, recursive = TRUE, showWarnings = FALSE)
     curl::curl_download(url, destfile = cache_path, mode = "wb")
+    writeLines(url, url_path)
   }
 
-  # Load file (retry if corrupted)
+  # Load dataset
   env <- new.env()
   tryCatch(
     load(cache_path, envir = env),
@@ -44,6 +41,7 @@ load_HDBreast <- function(cache = TRUE) {
       message("Load failed → redownloading.")
       unlink(cache_path)
       curl::curl_download(url, destfile = cache_path, mode = "wb")
+      writeLines(url, url_path)
       load(cache_path, envir = env)
     }
   )
@@ -53,3 +51,4 @@ load_HDBreast <- function(cache = TRUE) {
 
   env$HDBreast
 }
+
