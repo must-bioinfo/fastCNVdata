@@ -11,7 +11,7 @@
 #' @export
 
 load_HDBreast <- function(cache = TRUE) {
-  url <- "https://github.com/must-bioinfo/fastCNVdata/releases/download/v1.0.4/HDBreast.rda"
+  url <- "https://github.com/must-bioinfo/fastCNVdata/releases/download/v1.1.0/HDBreast.rda"
 
   cache_dir  <- rappdirs::user_cache_dir("fastCNVdata")
   cache_path <- file.path(cache_dir, "HDBreast.rda")
